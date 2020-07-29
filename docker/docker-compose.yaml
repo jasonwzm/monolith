@@ -1,0 +1,134 @@
+version: '3.3'
+services:
+  adservice:
+    network_mode: host
+    image: gcr.io/google-samples/microservices-demo/adservice:v0.2.0
+    ports:
+      - "9555"
+    environment:
+      PORT: "9555"
+      DISABLE_PROFILER: "1"
+      DISABLE_TRACING: "1"
+      DISABLE_DEBUGGER: "1"
+      DISABLE_STATS: "1"
+  cartservice:
+    network_mode: host
+    image: gcr.io/google-samples/microservices-demo/cartservice:v0.2.0
+    ports:
+      - "7070:7070"
+    environment:
+      REDIS_ADDR: "redis-cart:6379"
+      PORT: "7070"
+      LISTEN_ADDR: "0.0.0.0"
+      DISABLE_PROFILER: "1"
+      DISABLE_TRACING: "1"
+      DISABLE_DEBUGGER: "1"
+      DISABLE_STATS: "1"
+  checkoutservice:
+    network_mode: host
+    image: gcr.io/google-samples/microservices-demo/checkoutservice:v0.2.0
+    ports: 
+      - "5050:5050"
+    environment:
+      PORT: "5050"
+      PRODUCT_CATALOG_SERVICE_ADDR: "productcatalogservice:3550"
+      SHIPPING_SERVICE_ADDR: "shippingservice:50051"
+      PAYMENT_SERVICE_ADDR: "paymentservice:50052"
+      EMAIL_SERVICE_ADDR: "emailservice:5000"
+      CURRENCY_SERVICE_ADDR: "currencyservice:7000"
+      CART_SERVICE_ADDR: "cartservice:7070"
+      DISABLE_PROFILER: "1"
+      DISABLE_TRACING: "1"
+      DISABLE_DEBUGGER: "1"
+      DISABLE_STATS: "1"
+  currencyservice:
+    network_mode: host
+    image: gcr.io/google-samples/microservices-demo/currencyservice:v0.2.0
+    ports:
+      - "7000:7000"
+    environment:
+      PORT: "7000"
+      DISABLE_PROFILER: "1"
+      DISABLE_TRACING: "1"
+      DISABLE_DEBUGGER: "1"
+      DISABLE_STATS: "1"
+  emailservice:
+    network_mode: host
+    image: gcr.io/google-samples/microservices-demo/emailservice:v0.2.0
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: "8080"
+      DISABLE_PROFILER: "1"
+      DISABLE_TRACING: "1"
+      DISABLE_DEBUGGER: "1"
+      DISABLE_STATS: "1"
+  frontend:
+    network_mode: host
+    image: gcr.io/google-samples/microservices-demo/frontend:v0.2.0
+    ports:
+      - "8081:8081"
+    environment:
+      PORT: "8081"
+      PRODUCT_CATALOG_SERVICE_ADDR: "productcatalogservice:3550"
+      CURRENCY_SERVICE_ADDR: "currencyservice:7000"
+      CART_SERVICE_ADDR: "cartservice:7070"
+      RECOMMENDATION_SERVICE_ADDR: "recommendationservice:8082"
+      SHIPPING_SERVICE_ADDR: "shippingservice:50051"
+      CHECKOUT_SERVICE_ADDR: "checkoutservice:5050"
+      AD_SERVICE_ADDR: "adservice:9555"
+      ENV_PLATFORM: "gcp"
+      DISABLE_PROFILER: "1"
+      DISABLE_TRACING: "1"
+      DISABLE_DEBUGGER: "1"
+      DISABLE_STATS: "1"
+  paymentservice:
+    network_mode: host
+    image: gcr.io/google-samples/microservices-demo/paymentservice:v0.2.0
+    ports:
+      - "50052:50052"
+    environment:
+      PORT: "50052"
+      DISABLE_PROFILER: "1"
+      DISABLE_TRACING: "1"
+      DISABLE_DEBUGGER: "1"
+      DISABLE_STATS: "1"
+  productcatalogservice:
+    network_mode: host
+    image: gcr.io/google-samples/microservices-demo/productcatalogservice:v0.2.0
+    ports: 
+      - "3550:3550"
+    environment:
+      PORT: "3550"
+      DISABLE_PROFILER: "1"
+      DISABLE_TRACING: "1"
+      DISABLE_DEBUGGER: "1"
+      DISABLE_STATS: "1"
+  recommendationservice:
+    network_mode: host
+    image: gcr.io/google-samples/microservices-demo/recommendationservice:v0.2.0
+    ports:
+      - "8082:8082"
+    environment:
+      PORT: "8082"
+      DISABLE_PROFILER: "1"
+      DISABLE_TRACING: "1"
+      DISABLE_DEBUGGER: "1"
+      DISABLE_STATS: "1"
+      PRODUCT_CATALOG_SERVICE_ADDR: "productcatalogservice:3550"
+  redis-cart:
+    network_mode: host
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  shippingservice:
+    network_mode: host
+    image: gcr.io/google-samples/microservices-demo/shippingservice:v0.2.0
+    ports:
+      - "50051:50051"
+    environment:
+      PORT: "50051"
+      DISABLE_PROFILER: "1"
+      DISABLE_TRACING: "1"
+      DISABLE_DEBUGGER: "1"
+      DISABLE_STATS: "1"
