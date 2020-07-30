@@ -1,6 +1,6 @@
 # Monolith is Dead. Long Live the Monolith
 
-In the instructions here,  we will guide you through a setup on how you can integrate your monolith application into an Istio service mesh.
+This repository holds detailed step-by-step instructions for following along with our talk at KubeCon China 2020.  These instructions will guide you through a setup to integrate your monolith application into an Istio service mesh, highlighting advantages for release cadence, observability, and security.
 
 ## Prerequisites
 
@@ -27,12 +27,13 @@ Once that is complete, you can start your monolith with:
 ```bash
 docker-compose -f docker/docker-compose.yaml up
 ```
+you can checkout your monolithic hipster shop in action at http://frontend:8081.
 
 We don't actually recommend running your monolithinc application using docker-compose, but this was an easy way to take a familiar microservice demo app and run it on a single machine, mimicking the behavior of a true monolith in production.
 
 ### Add the VM to the Istio Mesh
 
-You can follow the instructions on setting up [VM mesh expansion](https://istio.io/latest/docs/setup/install/virtual-machine/) on Istio's website.
+You can follow the instructions on setting up [VM mesh expansion](https://istio.io/latest/docs/setup/install/virtual-machine/) on Istio's website.  Note that these instructions will leverage kubernetes to run Istio, and you can also run Kiali, Jager, Prometheus, and other Cloud Native tools in your K8s cluster to serve your monolith.  The monolithic hipster shop, however, runs only on your virtual machine.
 
 Add the `WorkloadEntry` configuration to add your VM to the mesh:
 
