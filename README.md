@@ -47,6 +47,8 @@ spec:
     app: vm
 ```
 
+> **Note**: Instructions below are broken as of now. We are working on a fix. Please check back later. Sorry for the inconvenience.
+
 ### Service Mesh Telemetry
 
 To set up Kiali as the dashboard for your telemetry, follow the [Kiali install instructions](https://istio.io/latest/docs/tasks/observability/kiali/).
