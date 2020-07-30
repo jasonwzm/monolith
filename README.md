@@ -32,7 +32,20 @@ We don't actually recommend running your monolithinc application using docker-co
 
 ### Add the VM to the Istio Mesh
 
-You can follow the instructions on setting up [VM mesh expansion](https://istio.io/latest/docs/examples/virtual-machines/single-network/) on Istio's website.
+You can follow the instructions on setting up [VM mesh expansion](https://istio.io/latest/docs/setup/install/virtual-machine/) on Istio's website.
+
+Add the `WorkloadEntry` configuration to add your VM to the mesh:
+
+```yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: WorkloadEntry
+metadata:
+  name: vm
+spec:
+  address: <vm-address>
+  labels:
+    app: vm
+```
 
 ### Service Mesh Telemetry
 
